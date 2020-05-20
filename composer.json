@@ -1,0 +1,28 @@
+{
+  "name": "rareloop/twigcs-ruleset",
+  "description": "Custom TwigCS ruleset",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Joe Lambert",
+      "email": "joe@rareloop.com",
+      "homepage": "https://www.rareloop.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "friendsoftwig/twigcs": "^3.2"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Rareloop\\Twigcs\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Rareloop\\Twigcs\\Test\\": "tests"
+    }
+  }
+}
