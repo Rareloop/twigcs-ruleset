@@ -8,7 +8,7 @@ It follows the [official Twig coding style](http://twig.sensiolabs.org/doc/codin
 
 ## Installation
 
-`composer require rareloop/twigcs-ruleset`
+`composer require rareloop/twigcs-ruleset --dev`
 
 ## Usage
 
