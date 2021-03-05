@@ -2,23 +2,24 @@
 
 namespace Rareloop\Twigcs\Rule;
 
-use Allocine\Twigcs\Lexer;
-use Allocine\Twigcs\Token;
-use Allocine\Twigcs\Rule\AbstractRule;
-use Allocine\Twigcs\Rule\RuleInterface;
+use FriendsOfTwig\Twigcs\Lexer;
+use FriendsOfTwig\Twigcs\TwigPort\Token;
+use FriendsOfTwig\Twigcs\Rule\AbstractRule;
+use FriendsOfTwig\Twigcs\Rule\RuleInterface;
+use FriendsOfTwig\Twigcs\TwigPort\TokenStream;
 
 class LowerCamelCaseVariable extends AbstractRule implements RuleInterface
 {
-    public function check(\Twig\TokenStream $tokens)
+    public function check(TokenStream $tokens)
     {
-        $this->reset();
+        $violations = [];
 
         while (!$tokens->isEOF()) {
             $token = $tokens->getCurrent();
 
-            if ($token->getType() === \Twig\Token::NAME_TYPE && $this->isNotLowerCamelCase($token->getValue())) {
+            if ($token->getType() === Token::NAME_TYPE && $this->isNotLowerCamelCase($token->getValue())) {
                 if ($tokens->look(Lexer::PREVIOUS_TOKEN)->getType() === Token::WHITESPACE_TYPE && $tokens->look(-2)->getValue() === 'set') {
-                    $this->addViolation(
+                    $violations[] = $this->createViolation(
                         $tokens->getSourceContext()->getPath(),
                         $token->getLine(),
                         $token->columnno,
@@ -30,7 +31,7 @@ class LowerCamelCaseVariable extends AbstractRule implements RuleInterface
             $tokens->next();
         }
 
-        return $this->violations;
+        return $violations;
     }
 
     private function isNotLowerCamelCase(string $string): bool
